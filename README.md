@@ -1,4 +1,4 @@
-#Tugas Kuliah 2
+# Tugas Kuliah 2
 
 Eksperimen data  preprocessing dari sebuah dokumen menjadi token
 Langkah Eksperimen
