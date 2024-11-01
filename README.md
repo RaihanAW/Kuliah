@@ -1,3 +1,3 @@
-# Kuliah
+# Minggu 5 dan 6
 
-Repositori untuk Tugas Kuliah
+Eksperimen Word Embedding untuk STKI
