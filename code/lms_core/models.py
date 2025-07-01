@@ -46,6 +46,7 @@ class CourseContent(models.Model):
     course_id = models.ForeignKey(Course, verbose_name="matkul", on_delete=models.RESTRICT)
     parent_id = models.ForeignKey("self", verbose_name="induk", 
                                 on_delete=models.RESTRICT, null=True, blank=True)
+    is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -70,3 +71,31 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return "Komen: "+self.member_id.user_id+"-"+self.comment
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField("Nomor HP", max_length=20, blank=True, null=True)
+    bio = models.TextField("Deskripsi", blank=True, null=True)
+    photo = models.ImageField(upload_to='profile_photos', blank=True, null=True)
+
+    def __str__(self):
+        return f"Profil {self.user.username}"
+
+class Announcement(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    show_at = models.DateField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class Bookmark(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.ForeignKey(CourseContent, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Bookmark {self.student.username} - {self.content.name}"

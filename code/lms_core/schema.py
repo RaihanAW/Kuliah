@@ -64,3 +64,48 @@ class CourseCommentOut(Schema):
 
 class CourseCommentIn(Schema):
     comment: str
+
+class UserProfileOut(Schema):
+    phone: Optional[str]
+    bio: Optional[str]
+    photo: Optional[str]
+
+class UserFullProfile(Schema):
+    id: int
+    first_name: str
+    last_name: str
+    email: str
+    phone: Optional[str]
+    bio: Optional[str]
+    photo: Optional[str]
+    courses_joined: list[CourseSchemaOut]
+    courses_created: list[CourseSchemaOut]
+
+class EditProfileIn(Schema):
+    first_name: Optional[str]
+    last_name: Optional[str]
+    email: Optional[str]
+    phone: Optional[str]
+    bio: Optional[str]
+
+class AnnouncementIn(Schema):
+    title: str
+    message: str
+    show_at: datetime
+
+class AnnouncementOut(Schema):
+    id: int
+    title: str
+    message: str
+    show_at: datetime
+    created_by: UserOut
+    created_at: datetime
+
+class BookmarkOut(Schema):
+    id: int
+    content: CourseContentMini
+    student: UserOut
+
+class EnrollIn(Schema):
+    course_id: int
+    student_ids: list[int]
